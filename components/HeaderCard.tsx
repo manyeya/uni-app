@@ -11,7 +11,7 @@ import { useWindowDimensions } from "react-native";
 import { Theme } from "../constants";
 import Octicons from "@expo/vector-icons/Octicons";
 import { Avatar } from "react-native-ui-lib";
-function HeaderCard({navigation}:any) {
+function HeaderCard({ navigation }: any) {
   const HEIGHT = useWindowDimensions().height * 0.28;
   const [searchQuery, setSearchQuery] = React.useState("");
 
@@ -42,10 +42,9 @@ function HeaderCard({navigation}:any) {
       </View>
       <View style={styles.bottom}>
         <Searchbar
-        elevation={0}
-        iconColor={Theme.colors.text.primary}
-        placeholderTextColor={Theme.colors.primary}
-   
+          elevation={0}
+          iconColor={Theme.colors.text.primary}
+          placeholderTextColor={Theme.colors.primary}
           style={{
             borderRadius: Theme.roundness.md,
             margin: 0,

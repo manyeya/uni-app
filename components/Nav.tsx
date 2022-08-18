@@ -1,6 +1,8 @@
 import * as React from "react";
 import { BottomNavigation, Headline, Text } from "react-native-paper";
 import Home from "../screens/Home/Home";
+import Report from "../screens/Report";
+import User from "../screens/User";
 
 const AlbumsRoute = () => <Text>Albums</Text>;
 
@@ -21,12 +23,11 @@ const Nav = () => {
 
   const renderScene = BottomNavigation.SceneMap({
     home: Home,
-    albums: AlbumsRoute,
-    recents: RecentsRoute,
+    albums: Report,
+    recents: User,
   });
  
   return (
-
       <BottomNavigation
         navigationState={{ index, routes }}
         onIndexChange={setIndex}

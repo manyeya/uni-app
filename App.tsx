@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import {
   Provider as PaperProvider,
@@ -9,6 +9,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Nav from "./components/Nav";
 import Setup from "./screens/Setup";
 import { NavigationContainer } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const theme = {
   ...DefaultTheme,
@@ -23,10 +25,36 @@ const theme = {
 };
 
 export default function App() {
+  const [user, setUser] = React.useState(false);
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("new");
+      return value != null ? setUser(true) : null;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, [user]);
+
+  const Stack = createNativeStackNavigator();
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        <Setup />
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <>
+            {user ? (
+              <Stack.Screen name="Nav" component={Nav} />
+            ) : (
+              <Stack.Screen name="Setup" component={Setup} />
+            )}
+          </>
+        </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
   );

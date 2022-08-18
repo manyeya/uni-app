@@ -1,3 +1,5 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect } from "react";
 import { View, Text } from "react-native";
 import { Headline } from "react-native-paper";
 import { Theme } from "../../constants";
