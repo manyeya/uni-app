@@ -11,6 +11,7 @@ import Setup from "./screens/Setup";
 import { NavigationContainer } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { RecoilRoot } from "recoil";
 
 const theme = {
   ...DefaultTheme,
@@ -26,36 +27,41 @@ const theme = {
 
 export default function App() {
   const [user, setUser] = React.useState(false);
+
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem("new");
-      return value != null ? setUser(true) : null;
+      return value != null ? setUser(true) : setUser(false);
     } catch (e) {
+      setUser(false);
       console.log(e);
     }
   };
   useEffect(() => {
-    getData();
+    const myData = async () => {
+      await getData();
+      console.log(user);
+    };
+    myData();
   }, [user]);
 
   const Stack = createNativeStackNavigator();
+
   return (
-    <PaperProvider theme={theme}>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <>
-            {user ? (
-              <Stack.Screen name="Nav" component={Nav} />
-            ) : (
-              <Stack.Screen name="Setup" component={Setup} />
-            )}
-          </>
-        </Stack.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+    <RecoilRoot>
+      <PaperProvider theme={theme}>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName={user ? "Nav" : "Setup"}
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="Nav" component={Nav} />
+            <Stack.Screen name="Setup" component={Setup} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    </RecoilRoot>
   );
 }

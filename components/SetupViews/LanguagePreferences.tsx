@@ -70,8 +70,8 @@ const Preferences = ({ setCurrentStep }: any) => {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: "white", padding: 20 };
-  const [selectedLanguage, setSelectedLanguage] = React.useState();
-  const [selectedLevel, setSelectedLevel] = React.useState();
+  const [selectedLanguage, setSelectedLanguage] = React.useState(languages[0]);
+  const [selectedLevel, setSelectedLevel] = React.useState(1);
   return (
     <View>
       <Portal>

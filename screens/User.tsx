@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Theme } from "../constants";
-import { Avatar } from "react-native-ui-lib";
+import { Avatar, LoaderScreen } from "react-native-ui-lib";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const deleteData = async () => {
@@ -14,7 +14,13 @@ const deleteData = async () => {
   }
 };
 
-const User = () => {
+const User = ({ navigation }: any) => {
+  const [loading, setLoading] = React.useState(false);
+  const logout = async () => {
+    setLoading(true);
+    await deleteData();
+    setLoading(false);
+  };
   return (
     <SafeAreaView
       style={{
@@ -24,25 +30,31 @@ const User = () => {
         justifyContent: "center",
       }}
     >
-      <Avatar>
-        <Text>User</Text>
-      </Avatar>
-      <Pressable
-        android_ripple={{
-          color: "white",
-          foreground: true,
-        }}
-        onPress={async () => await deleteData()}
-        style={{
-          backgroundColor: "black",
-          paddingVertical: 15,
-          paddingHorizontal: 15,
-          borderRadius: 20,
-          marginVertical: 20,
-        }}
-      >
-        <Text style={{ color: "white" }}>Delete Account</Text>
-      </Pressable>
+      {loading ? (
+        <LoaderScreen loading={true} />
+      ) : (
+        <>
+          <Avatar>
+            <Text>User</Text>
+          </Avatar>
+          <Pressable
+            android_ripple={{
+              color: "white",
+              foreground: true,
+            }}
+            onPress={async () => await logout()}
+            style={{
+              backgroundColor: "black",
+              paddingVertical: 15,
+              paddingHorizontal: 15,
+              borderRadius: 20,
+              marginVertical: 20,
+            }}
+          >
+            <Text style={{ color: "white" }}>Delete Account</Text>
+          </Pressable>
+        </>
+      )}
     </SafeAreaView>
   );
 };

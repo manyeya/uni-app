@@ -25,7 +25,7 @@ function stepSelector(step: number, currentStep: Function, navigation?: any) {
     case 2:
       return (
         <GenericSetup title="Lastly,Let's Get Your Electives Subjects">
-          <AcademicDetails navigation={navigation}/>
+          <AcademicDetails navigation={navigation} />
         </GenericSetup>
       );
   }
@@ -53,7 +53,7 @@ function Setup({ navigation }: any) {
           )
         )}
       </Wizard>
-      {stepSelector(currentStep, setCurrentStep,navigation)}
+      {stepSelector(currentStep, setCurrentStep, navigation)}
     </SafeAreaView>
   );
 }

@@ -42,8 +42,6 @@ const el_subjects = [
   "Music",
   "Physical Science",
   "Religion Studies",
-  "Second Additional Language",
-  "Third Additional Language",
   "Tourism",
   "Visual Arts",
 ];
@@ -71,10 +69,10 @@ const AcademicDetails = ({ navigation }: any) => {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
 
-  const [selectedSubject, setSelectedSubject] = React.useState();
+  const [selectedSubject, setSelectedSubject] = React.useState(el_subjects[3]);
   const [language, setLanguage] = React.useState<Language[]>([]);
   const [subjects, setSubject] = React.useState<Subject[]>([]);
-  const [selectedLevel, setSelectedLevel] = React.useState();
+  const [selectedLevel, setSelectedLevel] = React.useState(1);
 
   const getData = async () => {
     try {
@@ -236,6 +234,7 @@ const AcademicDetails = ({ navigation }: any) => {
           if (subjects.length > 4) {
             storeSubjects(subjects);
             await firstTime(true);
+            navigation.navigate("Nav");
           } else {
             showModal();
           }
