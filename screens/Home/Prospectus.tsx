@@ -1,14 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Appbar } from "react-native-paper";
 
-const Prospectus = () => {
+const Prospectus = ({ navigation }: any) => {
   return (
-    <View>
-      <Text>Prospectus</Text>
-    </View>
-  )
-}
+    <SafeAreaView>
+      <Appbar.Header style={{ backgroundColor: '#8F6C3C' }}>
+        <Appbar.BackAction onPress={() => navigation.pop()} />
+        <Appbar.Content title="Aps" color='white'/>
+      </Appbar.Header>
+    </SafeAreaView>
+  );
+};
 
-export default Prospectus
+export default Prospectus;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

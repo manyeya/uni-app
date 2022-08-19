@@ -1,11 +1,15 @@
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text } from "react-native-paper";
+import { Appbar, Text } from "react-native-paper";
+import { Theme } from "../constants";
 
-const Notifications = () => {
+const Notifications = ({navigation}:any) => {
   return (
     <SafeAreaView>
-      <Text variant="headlineLarge">Notifications</Text>
+      <Appbar.Header style={{ backgroundColor: Theme.colors.primary }}>
+        <Appbar.BackAction onPress={() => navigation.pop()} />
+        <Appbar.Content title="Notifications" />
+      </Appbar.Header>
     </SafeAreaView>
   );
 };

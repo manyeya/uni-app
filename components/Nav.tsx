@@ -14,11 +14,10 @@ const Nav = () => {
     {
       key: "home",
       title: "Home",
-      focusedIcon: "home",
-      unfocusedIcon: "home-outline",
+      focusedIcon: "view-dashboard",
     },
-    { key: "albums", title: "Albums", focusedIcon: "album" },
-    { key: "recents", title: "Recents", focusedIcon: "history" },
+    { key: "albums", title: "Albums", focusedIcon: "chart-arc" },
+    { key: "recents", title: "Recents", focusedIcon: "account" },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
