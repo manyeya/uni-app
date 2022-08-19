@@ -1,5 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CardGrid from "../../components/CardGrid";
@@ -14,9 +15,23 @@ import Prospectus from "./Prospectus";
 const Stack = createNativeStackNavigator();
 
 function Base({ navigation }: any) {
+  const [user,setUser] = React.useState(null);
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("p_details");
+      return value != null ? setUser(JSON.parse(value)) : null;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-      <HeaderCard navigation={navigation}/>
+      <HeaderCard navigation={navigation} user={user}/>
       <CardGrid navigation={navigation} />
     </SafeAreaView>
   );

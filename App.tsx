@@ -12,6 +12,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RecoilRoot } from "recoil";
+import { LoaderScreen } from "react-native-ui-lib";
 
 const theme = {
   ...DefaultTheme,
@@ -27,6 +28,7 @@ const theme = {
 
 export default function App() {
   const [user, setUser] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const getData = async () => {
     try {
@@ -37,10 +39,12 @@ export default function App() {
       console.log(e);
     }
   };
+
   useEffect(() => {
     const myData = async () => {
+      setLoading(true);
       await getData();
-      console.log(user);
+      setLoading(false);
     };
     myData();
   }, [user]);
@@ -50,17 +54,21 @@ export default function App() {
   return (
     <RecoilRoot>
       <PaperProvider theme={theme}>
-        <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName={user ? "Nav" : "Setup"}
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Stack.Screen name="Nav" component={Nav} />
-            <Stack.Screen name="Setup" component={Setup} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        {loading ? (
+          <LoaderScreen />
+        ) : (
+          <NavigationContainer>
+            <Stack.Navigator
+              initialRouteName={user ? "Nav" : "Setup"}
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              <Stack.Screen name="Nav" component={Nav} />
+              <Stack.Screen name="Setup" component={Setup} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        )}
       </PaperProvider>
     </RecoilRoot>
   );

@@ -11,11 +11,11 @@ import { useWindowDimensions } from "react-native";
 import { Theme } from "../constants";
 import Octicons from "@expo/vector-icons/Octicons";
 import { Avatar } from "react-native-ui-lib";
-function HeaderCard({ navigation }: any) {
+function HeaderCard({ navigation,user }: any) {
   const HEIGHT = useWindowDimensions().height * 0.28;
   const [searchQuery, setSearchQuery] = React.useState("");
-
   const onChangeSearch = (query: any) => setSearchQuery(query);
+  console.log(user);
   return (
     <Surface elevation={0} style={{ ...styles.surface, height: HEIGHT }}>
       <View style={styles.top}>
@@ -24,7 +24,7 @@ function HeaderCard({ navigation }: any) {
             Hello
           </Text>
           <Text style={{ color: "white", fontSize: 20, fontWeight: "400" }}>
-            Khutso Siema
+            {user?.fName} {user?.lName}
           </Text>
         </View>
         <Pressable
